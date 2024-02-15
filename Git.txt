@@ -1,0 +1,112 @@
+Git Nedir ? 
+
+Git bir versiyon kontrol sistemidir. Yazılım geliştirme sürecinde kullanılan bir araçtır ve proje dosyalarının değişikliklerini takip etmeye, yönetmeye olanak sağlar. Git, dağıtık bir versiyon kontrol sistemidir, yani bir proje üzerinde çalışan birden fazla geliştirici
+arasında değişiklikleri senkronize etmek için kullanılır.
+
+GitHub Nedir ?
+
+Github ise git tabanlı bulut hizmet sağlayıcısıdır. Git depolarını barındırmaya ve çeşitli işbirlii özelliklerini kullanmaya olanak sağlar.
+
+----Git Kullanmaya Başlamak----
+ 
+Aşama - 1 / Git'i Yapılandırma 
+
+Git'i yapılandırmak için çeşitli komutlar kullanılır. Biz en temel ve gerekli olanları işleyeceğiz.
+
+git config --global user.name	> Yapılan değişikliğin kim tarafından yapıldığının bilgisini verir. Veriyi değiştirmek istiyorsak sona tırnak ekleyerek isim yazabiliriz, Örnek; git config --global user.name "Ömer Gün"
+ 
+git config --global user.email	> Aynı şekilde değişikliğin hangi E-Mail üzerinden yapıldığını gösterir.
+
+git config --global color.ui [ auto | always | true | false ]	> Biz Command Line ekranındayken çeşitli işlemler yaparız (logları takip ederiz vs.) Command Line ekranında iyi bir arayüz olmadığı için veriler karmaşık gözükebilir. Bu kod parçacığını biraz daha okunur yapmak adına Command Line ekranındaki veriler renklendirilir. Bu komut kullanılırken ekstra köşeli parantez içindeki komutlar eklenerek çeşitli filtrelemeler yapılabilir ; 
+
+Auto : Command Line'da renkledirme yapılırken, bu loglar dışarıda bir ortama yüklendiğinde renklendirmeyi kapatır.
+Always : Her koşulda renklendirmeyi açık tutar.
+True : Always ile aynı işlevi görür.
+False : Renklendirmeyi tamamen kapatır. 
+
+Bu şekilde Git'i istediğimiz şekilde yapılandırabiliriz.
+
+Ardından Git kullanmaya başlamak için Git'in kullanılacağı dosyayı tayin etmemiz gerekir. Bunu Git Bash ile yapabiliriz. Git Bash üzerinden Git'in kurulacağı dosyaya geçeriz ve Git'i oraya kurarız. 
+
+git init   > Bu komutu kullanarak Bash üzerinde o anda bulunduğumuz dosyada Git'i aktif etmiş oluruz yani initialize etmiş oluruz. Bu komut sayesinde artık bulunduğumuz nokta bizim Git repomuz olmuş oldu. Her şey buraya kaydedilir. Burada '.git' adında dosya oluşturulur. (gözükmüyorsa gizli dosyadır) ve sistem, biz ilerleme katettikçe oraya loglama yapar. 
+
+git init --template   > Bu komut, bir Git deposu oluşturulurken belirli bir şablon dizinini kullanmamıza olanak sağlayan bir Git komutudur. Bu seçenek sayesinde bir Git reposu başlatıldığında otomatik olarak belirtilen bir şablon dizinini kullanmamıza olanak sağlar.
+
+git clone [url-link]   > Bu komut ile uzak sunucudaki bir repository'i bilgisayarımıza kopyalayabiliriz.
+
+git clone --branch [BranchName] [url-link]   > Özel spesifik bir branch klonlanacaksa. 
+
+git status   > Git'in takip ettiği bir klasörde değişiklik yapınca o dosyanın git durumunu görüntüler. Yani burada hangi dosyaların takip edildiğini, hangilerinin Staging Area'ya eklenmesi ve hangilerinin Commit edilmesi gerektiği bilgilerini görebiliriz. Git bu durumları incelerken 3 farklı alan bulunmaktadır ve buna göre inceler. 
+
+Working Area -> Burası bizim localde çalıştığımız alandır.
+
+Staging Area(Index Area) -> Projemizdeki değişiklikleri seçip hazırlayarak bir sonraki commit'in içeriğini belirlemenize olanak tanıyan ara bir alandır. 
+
+Remote Repository -> Staging Area'daki değişikliklerin commit edildiği yerdir.
+
+git status -s	> Bu komutla 'git status' komutuyla aldığımız çıktının kısa halini alırız. 
+
+Şimdi Git'i initialize ettiğimiz bir dosyada bir dosya eklediğimizi farzedelim. Bu dosa sonradan oluştuğu için 'untracked' dosyadır yani henüz takip edilmiyor. Bunu git sistemimize tanıtmamız gerekir ('git status yazarak bu dosyanın durumunu yani üstte belirttiğimiz alanlardan hangisinde olduğunu öğrenebiliriz). Bu dosyayı takibe almak için git add komutu kullanılır.
+
+git add   > Dosyamızı Staging Area'ya alır.
+     Ekstra bilgi: 
+		git add . Varolan tüm dosyaları Staging Area'ya alır.
+		git add *.txt Belirtilen uzantı türündeki dosyaları Staging Area'ya alır, buradaki örneğimizde bu .txt uzantılı dosyalardır.
+		git add -u Sadece modified edilen dosyaları stage üzerine taşır.
+		git add [DosyaAdı] İstenen spesifik bir dosyayı Staging Area'ya taşır.
+
+git reset   > Staging Area'ya eklenenleri geri dışarı çıkarır. (Yapılan değişiklikleri geri almaz sadece dosyayı Stage Area'dan geri çıkarır.)
+
+git diff   > Buradaki diff "Different" kelimesinden gelmektedir. Dosya içinde yapılan değişikiliğin ne olduğunu görmek için kullanılan komuttur. (! Untracked dosya takip edilmediği için onda yapılan değişikliği git diff ile göremeyiz.) Burada Staging Area'da olmayan değişikliklerin diff'i verilir. Stage Area'daki diff görülmek isteniyorsa git diff --staged komutu kulanılabilir. 
+
+git commit -m "AçıklamaYazısı"   > Daha önceden "git commit" diyerek Staging Area'ya aldığımız dosyaları bu commit koduyla Local Repository'e kaydederiz.
+
+git log   > Projenin commit geçmişini göstermek için kullanılır. Burada yapılan commitlerin listesini, kim tarafından ne zaman yapıldığı gibi bilgilere ulaşabiliriz.
+
+Şu ana kadar yaptığımız işleri hep localde yaptık yani şu ana kadar uzaktaki sunucumuzla henüz bağlantıya geçmedik. Yaptığımız değişiklikleri uzak sunucuya göndermek için git push komutunu kullanırız.
+
+git push   > Bu komutla yapılan değişiklikler uzak sunucuya gönderilir.
+
+Şimdi ise başkalarıyla ortak bir repoda çalıştığımızı düşünelim. Başkası bu repoda güncelleme yaptığımızda çalışma ortamımız aynı olduğu için onun yaptığı değişiklikleri sürekli kendi localime entegre etmem gerekir. Bunun için git fetch komutu kullanılır. 
+
+git fetch   > Git fetch, uzak bir depodan (örneğin, GitHub'daki bir depo) güncelleme bilgilerini getiren bir Git komutudur. Ancak, bu komut, mevcut çalışma dizinindeki dosyaları değiştirmez veya güncellemez. Yani, sadece uzaktaki depodaki değişiklikleri kontrol etmek ve yerel depoya güncel bilgileri getirmek için kullanılır.
+
+git pull   > Git fetch ile uzak sunucudaki değişiklikleri almıştık pull ile bunu localimize uygularız.
+
+
+Conflict Nedir?
+
+Yapılan git pull ve git merge işlemleri sırasında çakışma olabilir. Mesela farklı kişiler ortak bir projede aynı dosya ve aynı satırda değişiklik yapmışsa bu değişiklikler çakışabilir, bu duruma conflict deriz. Bu durumda git çakışmayı önlemek adına bir mesaj gösterir ve çakışan dosyaları işaretler. Bu dosyaları kullanıcı manuel olarak düzeltir.
+
+Branch Nedir ? 
+
+"Branch" (dal), bir Git deposundaki bağımsız geliştirme hatlarından biridir. Git, her branch'i bağımsız bir geliştirme hattı olarak düşünür. Bu, projenin farklı özellikleri veya geliştirmeleri üzerinde aynı anda çalışmanızı sağlar.
+
+Git deposu, genellikle "master" adında varsayılan bir ana (default) branch ile başlar. Ana branch, genellikle projenin en güncel ve stabil sürümünü temsil eder. Proje geliştikçe veya yeni özellikler ekledikçe, bu ana branch'ten ayrılmak ve yeni branch'ler oluşturmak yaygın bir uygulamadır.
+
+Her branch, projenin belirli bir özelliği, hata düzeltmesi veya geliştirmesi üzerinde çalışmak için oluşturulabilir. Branch'ler, projeyi düzenli ve sürdürülebilir bir şekilde geliştirmenin ve yönetmenin bir yoludur.
+
+Branch Açma Yöntemleri 
+
+* git branch "branchadı"   > Verdiğimiz isimde bir branch oluşturur.
+* git checkout "branchadı"   > Verilen isimde branch var mı yok mu kontrol eder ve varsa ona geçer.
+* git checkout -b "branchadı"  > Varsa o branche geçer yoksa oluşturur
+
+Git'i Github ile Bağlama 
+git remote add origin https://github.com.....(link)   > Burada gitden remote yani uzaktaki repomuza erişeceğimizi söylüyoruz ardından add origin yazarak bi isim veriyoruz linke. Origin ismi verme amacımız her seferinde linki çağırmamak için origin ismi vermiş olduk. Birazdan yazacğımız kodla tekrar tekrar linki yazmak yerine origin yazacağız.
+
+git push -u origin master   > (burada yazdığımız master main de olabilir pcmizdeki dosyanın durumuna bağlı)
+
+  
+
+
+ 
+Git'i iyi anlamak adına çalışılabilecek linkler ; 
+​​https://gource.io/
+​​https://githistory.xyz/
+​​https://nic-hartley.github.io/git-gud/
+​​https://learngitbranching.js.org/
+https://marklodato.github.io/visual-git-guide/index-en.html
+https://github.com/pcottle/learnGitBranching#learnGitbranching
+https://onlywei.github.io/explain-git-with-d3/#branch
+https://git-school.github.io/visualizing-git/
